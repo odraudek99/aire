@@ -26,7 +26,7 @@ region = region.resize((new_width,new_height), Image.ANTIALIAS)
 region.save('/home/odraudek99/aire/calidad.png', 'PNG', optimize=True, quality=95)
 
 
-box2 = (189,197, 599,615)
+box2 = (189,210, 599,615)
 
 im2 = Image.open(StringIO.StringIO(screen))
 region2= im2.crop(box2)
