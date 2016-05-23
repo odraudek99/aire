@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/odraudek99/aire/aire
+cd /home/odraudek99/aire/
 
 NOW=$(date +"%d-%m-%Y %H:%M")
 
