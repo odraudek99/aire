@@ -12,7 +12,7 @@ driver.save_screenshot('original.png')
  
 screen = driver.get_screenshot_as_png()
 
-
+driver.quit()
 box = (627, 285, 1172, 594)
 height=401
 width=709
@@ -39,7 +39,7 @@ region2= im2.crop(box2)
 #region = region.resize((new_width,new_height), Image.ANTIALIAS)
 region2.save('/home/odraudek99/aire/mapa.png', 'PNG', optimize=True, quality=95)
 
-driver.quit()
+#driver.quit()
 
 
 
