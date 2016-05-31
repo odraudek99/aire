@@ -5,7 +5,7 @@ cd /home/odraudek99/aire/
 NOW=$(date +"%d-%m-%Y %H:%M")
 
 
-echo "\n"$NOW >> README.md
+echo "|"$NOW >> README.md
 #printf "\n" >> README.md
 #echo  $NOW >> README.md
 
