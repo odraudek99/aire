@@ -13,7 +13,7 @@ driver.save_screenshot('original.png')
 screen = driver.get_screenshot_as_png()
 
 driver.quit()
-box = (627, 285, 1172, 594)
+box = (627, 275, 1172, 594)
 height=401
 width=709
 new_width  = 709
@@ -26,7 +26,7 @@ region = region.resize((new_width,new_height), Image.ANTIALIAS)
 region.save('/home/odraudek99/aire/calidad.png', 'PNG', optimize=True, quality=95)
 
 
-box2 = (189,210, 599,615)
+box2 = (189,200, 599,615)
 
 im2 = Image.open(StringIO.StringIO(screen))
 region2= im2.crop(box2)
