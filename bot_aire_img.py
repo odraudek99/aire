@@ -6,44 +6,45 @@ driver = webdriver.PhantomJS()
 #driver = webdriver.Firefox()
 
 
-driver.set_window_size(1366, 728) # optional
+#driver.set_window_size(1366, 728) # optional
+
 driver.get('http://www.aire.df.gob.mx/default.php?map=Yw==')
 driver.save_screenshot('original.png')
- 
 screen = driver.get_screenshot_as_png()
 
-driver.quit()
-box = (627, 200, 1172, 594)
-height=401
-width=709
-new_width  = 709
-new_height = new_width * height / width 
-new_height = 402
-new_width  = new_height * width / height
-im = Image.open(StringIO.StringIO(screen))
-region = im.crop(box)
-region = region.resize((new_width,new_height), Image.ANTIALIAS)
-region.save('/home/odraudek99/aire/calidad.png', 'PNG', optimize=True, quality=95)
 
-
-box2 = (189,140, 599,615)
-
+box_mapa = (4,160, 417,564)
 im2 = Image.open(StringIO.StringIO(screen))
-region2= im2.crop(box2)
-region2.save('/home/odraudek99/aire/mapa.png', 'PNG', optimize=True, quality=95)
+mapa= im2.crop(box_mapa)
+mapa.save('/home/odraudek99/aire/mapa.png', 'PNG', optimize=True, quality=95)
+print ('termina imagen mapa')
 
-print ('termina python 1')
+
+box_calidad = (439,163, 986,546)
+im = Image.open(StringIO.StringIO(screen))
+calidad= im.crop(box_calidad)
+calidad.save('/home/odraudek99/aire/calidad.png', 'PNG', optimize=True, quality=95)
+print ('termina imagen calidad')
 
 
-#driver = webdriver.PhantomJS()
-#driver = webdriver.Firefox()
-#driver.set_window_size(1366, 728) # optional
-#driver.get('http://24timezones.com/es_husohorario/mexico_city_hora_actual.php')
-#driver.save_screenshot('hora.png')
-#screen = driver.get_screenshot_as_png()
-#driver.quit()
-#box = (475,249,747,271)
-#im2 = Image.open(StringIO.StringIO(screen))
-#region2= im2.crop(box)
-#region2.save('/home/odraudek99/aire/hora1.png', 'PNG', optimize=True, quality=95)
-#print ('termina python 2')
+driver.get('http://24timezones.com/es_husohorario/mexico_city_hora_actual.php')
+driver.save_screenshot('hora_cdmx.png')
+screen = driver.get_screenshot_as_png()
+
+box = (34,186,248,286)
+im2 = Image.open(StringIO.StringIO(screen))
+region2= im2.crop(box)
+region2.save('/home/odraudek99/aire/hora1.png', 'PNG', optimize=True, quality=95)
+print ('termina imagen HORA CDMX')
+
+driver.quit()
+print ('termina ejecucion python...')
+
+
+
+
+
+
+
+
+
