@@ -1,6 +1,7 @@
 from selenium import webdriver
 from PIL import Image
 import StringIO
+import signal
 
 driver = webdriver.PhantomJS()
 #driver = webdriver.Firefox()
@@ -37,6 +38,7 @@ region2= im2.crop(box)
 region2.save('/home/odraudek99/aire/hora1.png', 'PNG', optimize=True, quality=95)
 print ('termina imagen HORA CDMX')
 
+driver.service.process.send_signal(signal.SIGTERM)
 driver.quit()
 print ('termina ejecucion python...')
 
