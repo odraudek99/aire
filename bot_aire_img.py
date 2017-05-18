@@ -11,7 +11,6 @@ import re
 
 url = "http://www.aire.df.gob.mx/js/delegaciones/paths.js"
 
-
 f = urllib.urlopen(url)
 myfile = f.read()
 
