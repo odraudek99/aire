@@ -3,6 +3,94 @@ from PIL import Image
 import StringIO
 import signal
 
+### inicio json
+import json
+import urllib
+import re
+
+
+url = "http://www.aire.df.gob.mx/js/delegaciones/paths.js"
+
+
+f = urllib.urlopen(url)
+myfile = f.read()
+
+
+ll = re.split('\n',myfile)
+
+#print myfile
+
+print("tamanio: "+ str(len (ll)) )
+
+file = open('datos.json', 'w')
+
+
+json = "["
+file.write(json)
+
+tamanio = len(ll)
+count = 0
+
+for chunk in ll:
+    #print "chunk1: "+str(chunk)
+    if "name:" in chunk and "zona25" in chunk :
+        print("No aplica")
+    elif "name:" in chunk :
+        #print ("name+1")
+        cadena = chunk.replace("\"+\"\\n\"+\"", "_").replace("\"+\"", "_").replace("\"", "").replace(",", "").replace("\t", "").replace("name: ", "").replace("name: ", "").replace("\n", "").replace("\r", "");
+
+        objeto = re.split("_",cadena);
+
+        if count > 0 and count + 1 < tamanio:
+                json = json + ", "
+                #primerLinea = False
+        count =+1
+        linea = str("{ \"Localidad\": \""+str(objeto[0]) +
+                            "\", \"Estatus\": \""+str(objeto[1]) +
+                            "\", \"Numero\": \""+str(objeto[2]) +
+                            "\", \"Contaminante\": \""+str(objeto[3])+"\"}")
+
+        json = json + linea
+        file.write(linea)
+
+
+        #print(json)
+        '''print ("{Localidad: "+str(objeto[0]) +
+                ", Estatus: "+str(objeto[1]) +
+                ", Numero: "+str(objeto[2]) +
+                ", Contaminante: "+str(objeto[3])+"}")'''
+
+
+
+
+objetoVacio = str("{ \"Localidad\": \"\"" +
+                    ", \"Estatus\": \"\""+
+                    ", \"Numero\": \"\""+
+                    ", \"Contaminante\": \"\"}")
+
+file.write(objetoVacio)
+#json = json + objetoVacio
+
+file.write("]")
+json = json + "]"
+json = json.replace("\n", "")
+
+file.close()
+
+
+file2 = open('datos2.json', 'w')
+file2.write(json)
+
+file2.close()
+
+print ("****\n")
+print ("Mi JSON: "+json)
+
+
+
+
+## end json
+
 driver = webdriver.PhantomJS()
 #driver = webdriver.Firefox()
 
