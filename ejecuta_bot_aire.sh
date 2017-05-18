@@ -19,3 +19,5 @@ git commit -m 'update images' .
 #git commit -m 'New changes' README.md
 git push origin master
 
+pgrep phantomjs | xargs kill
+
