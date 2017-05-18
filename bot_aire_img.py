@@ -20,7 +20,7 @@ ll = re.split('\n',myfile)
 
 #print myfile
 
-print("tamanio: "+ str(len (ll)) )
+#print("tamanio: "+ str(len (ll)) )
 
 file = open('datos.json', 'w')
 
@@ -83,8 +83,8 @@ file2.write(json)
 
 file2.close()
 
-print ("****\n")
-print ("Mi JSON: "+json)
+print ("***termina json")
+#print ("Mi JSON: "+json)
 
 
 
