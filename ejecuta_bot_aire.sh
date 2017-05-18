@@ -14,7 +14,7 @@ python2.7 bot_aire_img.py
 #git add *
 #comment = New changes NOW
 echo  'inicia commit '$NOW
-git commit -m 'update images $NOW' .
+git commit -m "update images $NOW" .
 #git commit -m 'update images' calidad.png README.md mapa.png hora1.png
 #git commit -m 'New changes' README.md
 git push origin master
