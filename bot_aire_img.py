@@ -22,7 +22,7 @@ ll = re.split('\n',myfile)
 
 #print("tamanio: "+ str(len (ll)) )
 
-file = open('datos.json', 'w')
+file = open('datos.json', 'w+')
 
 
 json = "["
