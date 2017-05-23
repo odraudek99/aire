@@ -7,7 +7,7 @@ import signal
 import json
 import urllib
 import re
-import numpy
+#import numpy
 
 class Medicion(object):
     localidad = ""
