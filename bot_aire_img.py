@@ -7,22 +7,42 @@ import signal
 import json
 import urllib
 import re
+import numpy
 
+class Medicion(object):
+    localidad = ""
+    estatus = ""
+    numero = ""
+    contaminante = ""
+    fill =""
+
+
+    def __init__(self, localidad="", estatus="", numero="", contaminante=""):
+        self.localidad = localidad
+        self.estatus = estatus
+        self.numero = numero
+        self.contaminante = contaminante
+
+    def setFill(self, fill):
+        self.fill=fill
+
+    def toString(self):
+
+        return ("{\"localidad\": "  +   "\""+self.localidad.strip() +"\"" +
+                ", \"estatus\": "   +   "\"" + self.estatus.strip() +"\"" +
+                ", \"numero\": "    + "\"" + self.numero.strip()+ "\""+
+                ", \"contaminante\":"   +   "\"" + self.contaminante.strip()+ "\"" +
+                ", \"fill\": "+"\""+self.fill.strip() +"\"}")
 
 url = "http://www.aire.df.gob.mx/js/delegaciones/paths.js"
 
 f = urllib.urlopen(url)
 myfile = f.read()
 
-
 ll = re.split('\n',myfile)
 
-#print myfile
-
-#print("tamanio: "+ str(len (ll)) )
-
-file = open('datos.json', 'w+')
-
+print("tamanio: "+ str(len (ll)) )
+file = open('datos2.json', 'w')
 
 json = "["
 file.write(json)
@@ -30,60 +50,44 @@ file.write(json)
 tamanio = len(ll)
 count = 0
 
+
+mediciones = []
+
 for chunk in ll:
-    #print "chunk1: "+str(chunk)
     if "name:" in chunk and "zona25" in chunk :
         print("No aplica")
-    elif "name:" in chunk :
+        continue
+    linea = ""
+
+
+
+    if "name:" in chunk :
+        medicion = Medicion()
         #print ("name+1")
         cadena = chunk.replace("\"+\"\\n\"+\"", "_").replace("\"+\"", "_").replace("\"", "").replace(",", "").replace("\t", "").replace("name: ", "").replace("name: ", "").replace("\n", "").replace("\r", "");
 
         objeto = re.split("_",cadena);
 
-        if count > 0 and count + 1 < tamanio:
-                json = json + ", "
-                #primerLinea = False
-        count =+1
-        linea = str("{ \"Localidad\": \""+str(objeto[0]) +
-                            "\", \"Estatus\": \""+str(objeto[1]) +
-                            "\", \"Numero\": \""+str(objeto[2]) +
-                            "\", \"Contaminante\": \""+str(objeto[3])+"\"}")
+        medicion = Medicion(objeto[0],objeto[1],objeto[2],objeto[3])
 
-        json = json + linea
-        file.write(linea)
+        mediciones.append(medicion)
 
+    elif "fill:" in chunk :
+        cadena = chunk.replace("\"+\"\\n\"+\"", "|").replace("\"+\"", "|").replace("\"", "").replace(",", "").replace("\t", "").replace("fill:","").replace("\r", "");
+        medicion.setFill(str(cadena))
 
-        #print(json)
-        '''print ("{Localidad: "+str(objeto[0]) +
-                ", Estatus: "+str(objeto[1]) +
-                ", Numero: "+str(objeto[2]) +
-                ", Contaminante: "+str(objeto[3])+"}")'''
+print ("len mediciones: "+str(len(mediciones)))
 
+for med in mediciones :
+    print (med.toString())
+    file.write(str(med.toString())+", ")
 
-
-
-objetoVacio = str("{ \"Localidad\": \"\"" +
-                    ", \"Estatus\": \"\""+
-                    ", \"Numero\": \"\""+
-                    ", \"Contaminante\": \"\"}")
-
-file.write(objetoVacio)
-#json = json + objetoVacio
+medicion = Medicion()
+file.write(str(medicion.toString()))
 
 file.write("]")
-json = json + "]"
-json = json.replace("\n", "")
 
 file.close()
-
-
-file2 = open('datos2.json', 'w')
-file2.write(json)
-
-file2.close()
-
-print ("***termina json")
-#print ("Mi JSON: "+json)
 
 
 
